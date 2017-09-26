@@ -22,3 +22,12 @@ limitations under the License.
 // fetch event listener
 
 // TODO SW-5 - delete outdated caches in the activate event listener
+
+
+var CACHE_NAME = 'static-cache';
+var urlsToCache = [
+  '.',
+  'index.html',
+  'styles/main.css'
+];
+

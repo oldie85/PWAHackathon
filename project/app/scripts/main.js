@@ -16,14 +16,14 @@
  *  limitations under the License
  *
  */
-/* eslint-env browser */
+ /* eslint-env browser */
 // jshint esversion: 6
 
 import App from 'app';
 import {hasPrerequisites} from 'features';
 
 (function() {
-'use strict';
+  'use strict';
 
   // Check to make sure service workers are supported in the current browser,
   // and that the current page is accessed from a secure origin. Using a
@@ -35,10 +35,19 @@ import {hasPrerequisites} from 'features';
       // 127.0.0.1/8 is considered localhost for IPv4.
       window.location.hostname.match(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-      )
-    );
+        )
+      );
 
   // TODO SW-2 - register the service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(function(registration) {
+      console.log('Registered:', registration);
+    }).catch(function(error) {
+      console.log('Registration failed: ', error);
+    });
+  }
+  
 
   // Your custom JavaScript goes here
   let app = new App();
