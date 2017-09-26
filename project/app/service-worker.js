@@ -27,8 +27,21 @@ var staticCacheName = 'e-commerce-v1';
 var urlsToCache = [
   '.',
   'index.html',
-  'styles/main.css'
+  'styles/main.css',
+  'images/header-bg.jpg',
+  'images/logo.png',
+  'images/footer-background.png'
 ];
+
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(staticCacheName)
+    .then(function(cache) {
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
+
 
 self.addEventListener('active', function(event) {
     var cacheWhitelist = [staticCacheName];
@@ -44,4 +57,14 @@ self.addEventListener('active', function(event) {
           )
       })
     );
-})
+});
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request)
+    .then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
+});
+
