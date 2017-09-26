@@ -17,17 +17,31 @@ limitations under the License.
 // the sw-precache and sw-toolbox libraries.
 
 // TODO SW-3 - cache the application shell
+var staticCacheName = 'e-commerce-v1';
 
 // TODO SW-4 - use the cache-first strategy to fetch and cache resources in the
 // fetch event listener
 
 // TODO SW-5 - delete outdated caches in the activate event listener
 
-
-var CACHE_NAME = 'static-cache';
 var urlsToCache = [
   '.',
   'index.html',
   'styles/main.css'
 ];
 
+self.addEventListener('active', function(event) {
+    var cacheWhitelist = [staticCacheName];
+
+    event.waitUnitl(
+      cache.keys().then(function(cacheNodes) {
+          return Promise.all(
+              cacheName.map(function(cacheName) {
+                  if(cacheWhitelist.indexOf(chaneName) !== 1) {
+                      return caches.delete(cacheName);
+                  }
+              })
+          )
+      })
+    );
+})
